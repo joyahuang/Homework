@@ -90,8 +90,6 @@ public class UsersDao {
       deleteStmt = connection.prepareStatement(deletePerson);
       deleteStmt.setString(1, user.getUserName());
       deleteStmt.executeUpdate();
-
-      // Return null so the caller can no longer operate on the Persons instance.
       return null;
     } catch (SQLException e) {
       e.printStackTrace();

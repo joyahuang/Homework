@@ -4,7 +4,7 @@ package rstrt.model;
   Expiration DATE NOT NULL,
   UserName VARCHAR(255) NOT NULL,
 * */
-import java.sql.Date
+import java.sql.Date;
 public class CreditCards {
   protected long CardNumber;
   protected Date Expiration;
