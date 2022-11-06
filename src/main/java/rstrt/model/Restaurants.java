@@ -8,7 +8,7 @@ public class Restaurants {
 	protected String Menu;
 	protected String Hours;
 	protected Boolean Active;
-	protected CruisineType CruisineType;
+	protected CuisineType CuisineType;
 	protected String Street1;
 	protected String Street2;
 	protected String City;
@@ -16,13 +16,13 @@ public class Restaurants {
 	protected int Zip;
 	protected String CompanyName;
 
-	public enum CruisineType{
+	public enum CuisineType{
 		AFRICAN, AMERICAN, ASIAN, EUROPEAN, HISPANIC
 	}
 
 	public Restaurants(int restaurantId, String name, String description,
 			String menu, String hours, Boolean active,
-			rstrt.model.Restaurants.CruisineType cruisineType, String street1,
+			Restaurants.CuisineType cuisineType, String street1,
 			String street2, String city, String state, int zip,
 			String companyName) {
 		RestaurantId = restaurantId;
@@ -31,7 +31,7 @@ public class Restaurants {
 		Menu = menu;
 		Hours = hours;
 		Active = active;
-		CruisineType = cruisineType;
+		CuisineType = cuisineType;
 		Street1 = street1;
 		Street2 = street2;
 		City = city;
@@ -42,7 +42,7 @@ public class Restaurants {
 
 	public Restaurants(String name, String description, String menu,
 			String hours, Boolean active,
-			rstrt.model.Restaurants.CruisineType cruisineType, String street1,
+			Restaurants.CuisineType cuisineType, String street1,
 			String street2, String city, String state, int zip,
 			String companyName) {
 		Name = name;
@@ -50,7 +50,7 @@ public class Restaurants {
 		Menu = menu;
 		Hours = hours;
 		Active = active;
-		CruisineType = cruisineType;
+		CuisineType = cuisineType;
 		Street1 = street1;
 		Street2 = street2;
 		City = city;
@@ -61,14 +61,14 @@ public class Restaurants {
 
 	public Restaurants(String name, String description, String menu,
 			String hours, Boolean active,
-			rstrt.model.Restaurants.CruisineType cruisineType, String street1,
+			Restaurants.CuisineType cuisineType, String street1,
 			String city, String state, int zip) {
 		Name = name;
 		Description = description;
 		Menu = menu;
 		Hours = hours;
 		Active = active;
-		CruisineType = cruisineType;
+		CuisineType = cuisineType;
 		Street1 = street1;
 		City = city;
 		State = state;
@@ -77,14 +77,14 @@ public class Restaurants {
 
 	public Restaurants(String name, String description,
 			String menu, String hours, Boolean active,
-			rstrt.model.Restaurants.CruisineType cruisineType, String street1,
+			Restaurants.CuisineType cuisineType, String street1,
 			String city, String state, int zip, String companyName) {
 		Name = name;
 		Description = description;
 		Menu = menu;
 		Hours = hours;
 		Active = active;
-		CruisineType = cruisineType;
+		CuisineType = cuisineType;
 		Street1 = street1;
 		City = city;
 		State = state;
@@ -94,14 +94,14 @@ public class Restaurants {
 
 	public Restaurants(String name, String description,
 			String menu, String hours, Boolean active,
-			rstrt.model.Restaurants.CruisineType cruisineType, String street1,
+			Restaurants.CuisineType cuisineType, String street1,
 			String street2, String city, String state, int zip) {
 		Name = name;
 		Description = description;
 		Menu = menu;
 		Hours = hours;
 		Active = active;
-		CruisineType = cruisineType;
+		CuisineType = cuisineType;
 		Street1 = street1;
 		Street2 = street2;
 		City = city;
@@ -157,12 +157,12 @@ public class Restaurants {
 		Active = active;
 	}
 
-	public rstrt.model.Restaurants.CruisineType getCruisineType() {
-		return CruisineType;
+	public Restaurants.CuisineType getCuisineType() {
+		return CuisineType;
 	}
 
-	public void setCruisineType(rstrt.model.Restaurants.CruisineType cruisineType) {
-		CruisineType = cruisineType;
+	public void setCuisineType(Restaurants.CuisineType cuisineType) {
+		CuisineType = cuisineType;
 	}
 
 	public String getStreet1() {
