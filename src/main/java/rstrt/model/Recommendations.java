@@ -7,18 +7,18 @@ package rstrt.model;
  */
 public class Recommendations {
   protected int RecommendationId;
-  protected String UserName;
-  protected int RestaurantId;
+  protected Users users;
+  protected Restaurants restaurants;
 
-  public Recommendations(int recommendationId, String userName, int restaurantId) {
+  public Recommendations(int recommendationId, Users users, Restaurants restaurants) {
     RecommendationId = recommendationId;
-    UserName = userName;
-    RestaurantId = restaurantId;
+    this.users = users;
+    this.restaurants = restaurants;
   }
 
-  public Recommendations(String userName, int restaurantId) {
-    UserName = userName;
-    RestaurantId = restaurantId;
+  public Recommendations(Users users, Restaurants restaurants) {
+    this.users = users;
+    this.restaurants = restaurants;
   }
 
   public int getRecommendationId() {
@@ -29,19 +29,19 @@ public class Recommendations {
     RecommendationId = recommendationId;
   }
 
-  public String getUserName() {
-    return UserName;
+  public Users getUsers() {
+    return users;
   }
 
-  public void setUserName(String userName) {
-    UserName = userName;
+  public void setUsers(Users users) {
+    this.users = users;
   }
 
-  public int getRestaurantId() {
-    return RestaurantId;
+  public Restaurants getRestaurants() {
+    return restaurants;
   }
 
-  public void setRestaurantId(int restaurantId) {
-    RestaurantId = restaurantId;
+  public void setRestaurants(Restaurants restaurants) {
+    this.restaurants = restaurants;
   }
 }

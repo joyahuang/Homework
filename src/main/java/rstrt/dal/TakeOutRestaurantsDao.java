@@ -6,33 +6,32 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import rstrt.model.Restaurants;
-import rstrt.model.SitDownRestaurants;
+import rstrt.model.TakeOutRestaurants;
 
-public class SitDownRestaurantsDao {
+public class TakeOutRestaurantsDao {
   protected ConnectionManager connectionManager;
-  private static SitDownRestaurantsDao instance=null;
-  protected SitDownRestaurantsDao(){
+  private static TakeOutRestaurantsDao instance=null;
+  protected TakeOutRestaurantsDao(){
     connectionManager=new ConnectionManager();
   }
-  public static SitDownRestaurantsDao getInstance(){
+  public static TakeOutRestaurantsDao getInstance(){
     if(instance==null){
-      instance=new SitDownRestaurantsDao();
+      instance=new TakeOutRestaurantsDao();
     }
     return instance;
   }
-  public SitDownRestaurants create(SitDownRestaurants sitDownRestaurant)throws SQLException{
-    RestaurantsDao.getInstance().create(sitDownRestaurant.getParent());
-    String insertOne="INSERT INTO SitDownRestaurants(RestaurantId,Capacity) VALUES(?,?)";
+  public TakeOutRestaurants create(TakeOutRestaurants takeOutRestaurants)throws SQLException {
+    RestaurantsDao.getInstance().create(takeOutRestaurants.getParent());
+    String insertOne="INSERT INTO TakeOutRestaurants(RestaurantId,MaxWaitTime) VALUES(?,?)";
     Connection connection=null;
     PreparedStatement insertStmt=null;
     try{
       connection=connectionManager.getConnection();
       insertStmt=connection.prepareStatement(insertOne);
-      insertStmt.setInt(1,sitDownRestaurant.getRestaurantId());
-      insertStmt.setInt(2,sitDownRestaurant.getCapacity());
+      insertStmt.setInt(1,takeOutRestaurants.getRestaurantId());
+      insertStmt.setInt(2,takeOutRestaurants.getMaxWaitTime());
       insertStmt.executeUpdate();
-      return sitDownRestaurant;
+      return takeOutRestaurants;
     }catch (SQLException e){
       e.printStackTrace();
       throw e;
@@ -45,11 +44,11 @@ public class SitDownRestaurantsDao {
       }
     }
   }
-  public SitDownRestaurants getSitDownRestaurantById(int sitDownRestaurantId)throws SQLException{
+  public TakeOutRestaurants getTakeOutRestaurantById(int restaurantId)throws SQLException{
     String selectOne = "SELECT RestaurantId,Name,Description,Menu,Hours,Active,"
-        + "CuisineType,Street1,Street2,City,State,Zip,CompanyName,SitDownRestaurants.Capacity "
-        + "FROM Restaurants INNER JOIN SitDownRestaurants "
-        + "ON Restaurants.RestaurantId=SitDownRestaurants.RestaurantId"
+        + "CuisineType,Street1,Street2,City,State,Zip,CompanyName,TakeOutRestaurants.MaxWaitTime "
+        + "FROM Restaurants INNER JOIN TakeOutRestaurants "
+        + "ON Restaurants.RestaurantId=TakeOutRestaurants.RestaurantId"
         + " WHERE RestaurantId=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
@@ -57,13 +56,13 @@ public class SitDownRestaurantsDao {
     try {
       connection = connectionManager.getConnection();
       selectStmt = connection.prepareStatement(selectOne);
-      selectStmt.setInt(1, sitDownRestaurantId);
+      selectStmt.setInt(1, restaurantId);
       results = selectStmt.executeQuery();
       if(results.next()) {
-        int Capacity=results.getInt("Capacity");
-        SitDownRestaurants sitdownrestaurants=new SitDownRestaurants(RestaurantsDao.getInstance()
-            .getRestaurantFromResult(results), Capacity);
-        return sitdownrestaurants;
+        int MaxWaitTime=results.getInt("MaxWaitTime");
+        TakeOutRestaurants takeoutrestaurants=new TakeOutRestaurants(RestaurantsDao.getInstance()
+            .getRestaurantFromResult(results), MaxWaitTime);
+        return takeoutrestaurants;
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -81,12 +80,12 @@ public class SitDownRestaurantsDao {
     }
     return null;
   }
-  public List<SitDownRestaurants> getSitDownRestaurantsByCompanyName(String companyName)throws SQLException{
-    List<SitDownRestaurants> res=new ArrayList<SitDownRestaurants>();
+  public List<TakeOutRestaurants> getTakeOutRestaurantsByCompanyName(String companyName)throws SQLException{
+    List<TakeOutRestaurants> res=new ArrayList<TakeOutRestaurants>();
     String selectOne = "SELECT RestaurantId,Name,Description,Menu,Hours,Active,"
-        + "CuisineType,Street1,Street2,City,State,Zip,CompanyName,SitDownRestaurants.Capacity "
-        + "FROM Restaurants INNER JOIN SitDownRestaurants "
-        + "ON Restaurants.RestaurantId=SitDownRestaurants.RestaurantId"
+        + "CuisineType,Street1,Street2,City,State,Zip,CompanyName,TakeOutRestaurants.MaxWaitTime "
+        + "FROM Restaurants INNER JOIN TakeOutRestaurants "
+        + "ON Restaurants.RestaurantId=TakeOutRestaurants.RestaurantId"
         + " WHERE CompanyName=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
@@ -97,10 +96,10 @@ public class SitDownRestaurantsDao {
       selectStmt.setString(1, companyName);
       results = selectStmt.executeQuery();
       while(results.next()) {
-        int Capacity=results.getInt("Capacity");
-        SitDownRestaurants sitdownrestaurants=new SitDownRestaurants(RestaurantsDao.getInstance()
-            .getRestaurantFromResult(results), Capacity);
-        res.add(sitdownrestaurants);
+        int MaxWaitTime=results.getInt("MaxWaitTime");
+        TakeOutRestaurants takeOutrestaurants=new TakeOutRestaurants(RestaurantsDao.getInstance()
+            .getRestaurantFromResult(results), MaxWaitTime);
+        res.add(takeOutrestaurants);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -118,14 +117,14 @@ public class SitDownRestaurantsDao {
     }
     return res;
   }
-  public SitDownRestaurants delete(SitDownRestaurants sitDownRestaurant)throws SQLException{
-    String deleteOne = "DELETE FROM SitDownRestaurants WHERE RestaurantId=?;";
+  public TakeOutRestaurants delete(TakeOutRestaurants takeOutRestaurant)throws SQLException{
+    String deleteOne = "DELETE FROM TakeOutRestaurants WHERE RestaurantId=?;";
     Connection connection = null;
     PreparedStatement deleteStmt = null;
     try {
       connection = connectionManager.getConnection();
       deleteStmt = connection.prepareStatement(deleteOne);
-      deleteStmt.setInt(1, sitDownRestaurant.getRestaurantId());
+      deleteStmt.setInt(1, takeOutRestaurant.getRestaurantId());
       deleteStmt.executeUpdate();
       return null;
     } catch (SQLException e) {

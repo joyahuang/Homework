@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import rstrt.model.Companies;
-import rstrt.model.CreditCards;
+
 
 public class CompaniesDao {
   protected ConnectionManager connectionManager;

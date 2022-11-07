@@ -15,26 +15,26 @@ public class Reviews {
   protected Timestamp Created;
   protected String Content;
   protected Float Rating;
-  protected String UserName;
-  protected int RestaurantId;
+  protected Users users;
+  protected Restaurants restaurants;
 
   public Reviews(int reviewId, Timestamp created, String content, Float rating,
-      String userName, int restaurantId) {
+      Users users, Restaurants restaurants) {
     ReviewId = reviewId;
     Created = created;
     Content = content;
     Rating = rating;
-    UserName = userName;
-    RestaurantId = restaurantId;
+    this.users = users;
+    this.restaurants = restaurants;
   }
 
-  public Reviews(Timestamp created, String content, Float rating, String userName,
-      int restaurantId) {
+  public Reviews(Timestamp created, String content, Float rating, Users users,
+      Restaurants restaurants) {
     Created = created;
     Content = content;
     Rating = rating;
-    UserName = userName;
-    RestaurantId = restaurantId;
+    this.users = users;
+    this.restaurants = restaurants;
   }
 
   public int getReviewId() {
@@ -69,19 +69,19 @@ public class Reviews {
     Rating = rating;
   }
 
-  public String getUserName() {
-    return UserName;
+  public Users getUsers() {
+    return users;
   }
 
-  public void setUserName(String userName) {
-    UserName = userName;
+  public void setUsers(Users users) {
+    this.users = users;
   }
 
-  public int getRestaurantId() {
-    return RestaurantId;
+  public Restaurants getRestaurants() {
+    return restaurants;
   }
 
-  public void setRestaurantId(int restaurantId) {
-    RestaurantId = restaurantId;
+  public void setRestaurants(Restaurants restaurants) {
+    this.restaurants = restaurants;
   }
 }
