@@ -84,4 +84,16 @@ public class Reviews {
   public void setRestaurants(Restaurants restaurants) {
     this.restaurants = restaurants;
   }
+
+  @Override
+  public String toString() {
+    return "Reviews{" +
+        "ReviewId=" + ReviewId +
+        ", Created=" + Created +
+        ", Content='" + Content + '\'' +
+        ", Rating=" + Rating +
+        ", users=" + users +
+        ", restaurants=" + restaurants +
+        '}';
+  }
 }

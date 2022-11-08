@@ -87,7 +87,14 @@ public class Inserter {
     System.out.println("create recommendations: "+recom4);
 
     Reviews review1=new Reviews(timestamp,"1", 1.0F,u1,r1);
+    Reviews review2=new Reviews(timestamp,"2", 1.0F,u1,r2);
+    Reviews review3=new Reviews(timestamp,"3", 1.0F,u2,r1);
     reviewsDao.create(review1);
+    reviewsDao.create(review2);
+    reviewsDao.create(review3);
+    System.out.println("create reviews: "+review1);
+    System.out.println("create reviews: "+review2);
+    System.out.println("create reviews: "+review3);
 
     Reservations res1=new Reservations(timestamp,timestamp,1,u1,s1);
     reservationsDao.create(res1);
@@ -111,7 +118,17 @@ public class Inserter {
       System.out.println(r);
     }
 
+    List<Reviews> reviews1=reviewsDao.getReviewsByRestaurantId(r1.getRestaurantId());
+    System.out.println("getReviewsByRestaurantId - r1");
+    for(Reviews r:reviews1){
+      System.out.println(r);
+    }
 
+    List<Reviews> reviews2=reviewsDao.getReviewsByUserName(u1.getUserName());
+    System.out.println("getReviewsByUserName - u1");
+    for(Reviews r:reviews1){
+      System.out.println(r);
+    }
 
     // delete
     creditCardsDao.delete(card1);
@@ -120,6 +137,8 @@ public class Inserter {
     recommendatioinsDao.delete(recom3);
     recommendatioinsDao.delete(recom4);
     reviewsDao.delete(review1);
+    reviewsDao.delete(review2);
+    reviewsDao.delete(review3);
     reservationsDao.delete(res1);
 
     sitDownRestaurantsDao.delete(s1);

@@ -85,4 +85,16 @@ public class Reservations {
   public void setRestaurants(SitDownRestaurants restaurants) {
     this.restaurants = restaurants;
   }
+
+  @Override
+  public String toString() {
+    return "Reservations{" +
+        "ReservationId=" + ReservationId +
+        ", Start=" + Start +
+        ", End=" + End +
+        ", Size=" + Size +
+        ", users=" + users +
+        ", restaurants=" + restaurants +
+        '}';
+  }
 }
