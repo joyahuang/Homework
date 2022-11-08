@@ -16,25 +16,26 @@ public class Reservations {
   protected Timestamp Start;
   protected Timestamp End;
   protected int Size;
-  protected String UserName;
-  protected int RestaurantId;
+  protected Users users;
+  protected SitDownRestaurants restaurants;
 
   public Reservations(int reservationId, Timestamp start, Timestamp end, int size,
-      String userName, int restaurantId) {
+      Users users, SitDownRestaurants restaurants) {
     ReservationId = reservationId;
     Start = start;
     End = end;
     Size = size;
-    UserName = userName;
-    RestaurantId = restaurantId;
+    this.users = users;
+    this.restaurants = restaurants;
   }
 
-  public Reservations(Timestamp start, Timestamp end, int size, String userName, int restaurantId) {
+  public Reservations(Timestamp start, Timestamp end, int size, Users users,
+      SitDownRestaurants restaurants) {
     Start = start;
     End = end;
     Size = size;
-    UserName = userName;
-    RestaurantId = restaurantId;
+    this.users = users;
+    this.restaurants = restaurants;
   }
 
   public int getReservationId() {
@@ -69,19 +70,19 @@ public class Reservations {
     Size = size;
   }
 
-  public String getUserName() {
-    return UserName;
+  public Users getUsers() {
+    return users;
   }
 
-  public void setUserName(String userName) {
-    UserName = userName;
+  public void setUsers(Users users) {
+    this.users = users;
   }
 
-  public int getRestaurantId() {
-    return RestaurantId;
+  public SitDownRestaurants getRestaurants() {
+    return restaurants;
   }
 
-  public void setRestaurantId(int restaurantId) {
-    RestaurantId = restaurantId;
+  public void setRestaurants(SitDownRestaurants restaurants) {
+    this.restaurants = restaurants;
   }
 }

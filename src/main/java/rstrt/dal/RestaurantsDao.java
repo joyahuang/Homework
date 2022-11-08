@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import rstrt.model.Companies;
 import rstrt.model.Restaurants;
 
 public class RestaurantsDao {
@@ -21,28 +23,41 @@ public class RestaurantsDao {
     return instance;
   }
   public Restaurants create(Restaurants restaurant)throws SQLException{
-    String insertOne="INSERT INTO Restaurants(RestaurantId,Name,Description,Menu,"
+    String insertOne="INSERT INTO Restaurants(Name,Description,Menu,"
         + "Hours,Active,CuisineType,Street1,Street2,City,State,Zip,CompanyName) "
-        + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+    if(restaurant.getCompany()==null){
+      insertOne="INSERT INTO Restaurants(Name,Description,Menu,"
+          + "Hours,Active,CuisineType,Street1,Street2,City,State,Zip) "
+          + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+    }
     Connection connection=null;
     PreparedStatement insertStmt=null;
+    ResultSet resultKey = null;
     try{
       connection=connectionManager.getConnection();
-      insertStmt=connection.prepareStatement(insertOne);
-      insertStmt.setInt(1,restaurant.getRestaurantId());
-      insertStmt.setString(2,restaurant.getName());
-      insertStmt.setString(3,restaurant.getDescription());
-      insertStmt.setString(4,restaurant.getMenu());
-      insertStmt.setString(5,restaurant.getHours());
-      insertStmt.setBoolean(6,restaurant.getActive());
-      insertStmt.setString(7,restaurant.getCuisineType().name());
+      insertStmt=connection.prepareStatement(insertOne, Statement.RETURN_GENERATED_KEYS);
+      insertStmt.setString(1,restaurant.getName());
+      insertStmt.setString(2,restaurant.getDescription());
+      insertStmt.setString(3,restaurant.getMenu());
+      insertStmt.setString(4,restaurant.getHours());
+      insertStmt.setBoolean(5,restaurant.getActive());
+      insertStmt.setString(6,restaurant.getCuisineType().name());
+      insertStmt.setString(7,restaurant.getStreet1());
       insertStmt.setString(8,restaurant.getStreet1());
-      insertStmt.setString(9,restaurant.getStreet1());
-      insertStmt.setString(10,restaurant.getCity());
-      insertStmt.setString(11,restaurant.getState());
-      insertStmt.setInt(12,restaurant.getZip());
-      insertStmt.setString(13,restaurant.getCompanyName());
+      insertStmt.setString(9,restaurant.getCity());
+      insertStmt.setString(10,restaurant.getState());
+      insertStmt.setInt(11,restaurant.getZip());
+      if(restaurant.getCompany()!=null){
+        insertStmt.setString(12,restaurant.getCompany().getCompanyName());
+      }
       insertStmt.executeUpdate();
+      int restaurantId=-1;
+      resultKey=insertStmt.getGeneratedKeys();
+      if(resultKey.next()){
+        restaurantId=resultKey.getInt(1);
+      }
+      restaurant.setRestaurantId(restaurantId);
       return restaurant;
     }catch (SQLException e){
       e.printStackTrace();
@@ -71,9 +86,10 @@ public class RestaurantsDao {
       String City = results.getString("City");
       String State = results.getString("State");
       int Zip = results.getInt("Zip");
-      String CompanyName = results.getString("CompanyName");
+      CompaniesDao companiesDao=CompaniesDao.getInstance();
+      Companies Company=companiesDao.getCompanyByCompanyName(results.getString("CompanyName"));
       Restaurants restaurant = new Restaurants(RestaurantId, Name, Description, Menu, Hours,
-          Active, CuisineType, Street1, Street2, City, State, Zip, CompanyName);
+          Active, CuisineType, Street1, Street2, City, State, Zip, Company);
       return restaurant;
     }
     catch (SQLException e) {
@@ -158,22 +174,7 @@ public class RestaurantsDao {
       selectStmt.setString(1, companyName);
       results = selectStmt.executeQuery();
       while(results.next()) {
-        int RestaurantId = results.getInt("RestaurantId");
-        String Name = results.getString("Name");
-        String Description = results.getString("Description");
-        String Menu = results.getString("Menu");
-        String Hours = results.getString("Hours");
-        Boolean Active = results.getBoolean("Active");
-        Restaurants.CuisineType CuisineType=Restaurants.CuisineType.valueOf(results.getString("CuisineType"));
-        String Street1 = results.getString("Street1");
-        String Street2 = results.getString("Street2");
-        String City  = results.getString("City");
-        String State  = results.getString("State");
-        int Zip=results.getInt("Zip");
-        String CompanyName  = results.getString("CompanyName");
-        Restaurants restaurant=new Restaurants(RestaurantId,Name,Description,Menu,Hours,
-            Active,CuisineType,Street1,Street2,City,State,Zip,CompanyName);
-        res.add(restaurant);
+        res.add(getRestaurantFromResult(results));
       }
     } catch (SQLException e) {
       e.printStackTrace();

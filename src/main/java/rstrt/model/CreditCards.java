@@ -8,12 +8,12 @@ import java.sql.Date;
 public class CreditCards {
   protected long CardNumber;
   protected Date Expiration;
-  protected String UserName;
+  protected Users user;
 
-  public CreditCards(long cardNumber, Date expiration, String userName) {
+  public CreditCards(long cardNumber, Date expiration, Users user) {
     CardNumber = cardNumber;
     Expiration = expiration;
-    UserName = userName;
+    this.user = user;
   }
 
   public long getCardNumber() {
@@ -32,11 +32,11 @@ public class CreditCards {
     Expiration = expiration;
   }
 
-  public String getUserName() {
-    return UserName;
+  public Users getUser() {
+    return user;
   }
 
-  public void setUserName(String userName) {
-    UserName = userName;
+  public void setUser(Users user) {
+    this.user = user;
   }
 }

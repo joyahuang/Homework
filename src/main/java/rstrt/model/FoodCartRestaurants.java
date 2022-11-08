@@ -1,5 +1,7 @@
 package rstrt.model;
 
+import rstrt.model.Restaurants.CuisineType;
+
 public class FoodCartRestaurants extends Restaurants{
   protected boolean Licensed;
   public FoodCartRestaurants(Restaurants restaurant,boolean licensed){
@@ -15,23 +17,23 @@ public class FoodCartRestaurants extends Restaurants{
         restaurant.getCity(),
         restaurant.getState(),
         restaurant.getZip(),
-        restaurant.getCompanyName());
+        restaurant.getCompany());
     Licensed=licensed;
   }
+
   public FoodCartRestaurants(int restaurantId, String name, String description, String menu,
       String hours, Boolean active, Restaurants.CuisineType cuisineType, String street1,
-      String street2, String city, String state, int zip, String companyName, boolean licensed) {
-    super(restaurantId, name, description, menu, hours, active, cuisineType, street1, street2,
-        city,
-        state, zip, companyName);
+      String street2, String city, String state, int zip, Companies company, boolean licensed) {
+    super(restaurantId, name, description, menu, hours, active, cuisineType, street1, street2, city,
+        state, zip, company);
     Licensed = licensed;
   }
 
   public FoodCartRestaurants(String name, String description, String menu, String hours,
       Boolean active, Restaurants.CuisineType cuisineType, String street1, String street2,
-      String city, String state, int zip, String companyName, boolean licensed) {
+      String city, String state, int zip, Companies company, boolean licensed) {
     super(name, description, menu, hours, active, cuisineType, street1, street2, city, state, zip,
-        companyName);
+        company);
     Licensed = licensed;
   }
 
@@ -44,9 +46,8 @@ public class FoodCartRestaurants extends Restaurants{
 
   public FoodCartRestaurants(String name, String description, String menu, String hours,
       Boolean active, Restaurants.CuisineType cuisineType, String street1, String city,
-      String state, int zip, String companyName, boolean licensed) {
-    super(name, description, menu, hours, active, cuisineType, street1, city, state, zip,
-        companyName);
+      String state, int zip, Companies company, boolean licensed) {
+    super(name, description, menu, hours, active, cuisineType, street1, city, state, zip, company);
     Licensed = licensed;
   }
 
@@ -66,6 +67,6 @@ public class FoodCartRestaurants extends Restaurants{
   }
   public Restaurants getParent(){
     return new Restaurants(RestaurantId,Name,Description,Menu,Hours,
-        Active,CuisineType,Street1,Street2,City,State,Zip,CompanyName);
+        Active,CuisineType,Street1,Street2,City,State,Zip,Company);
   }
 }

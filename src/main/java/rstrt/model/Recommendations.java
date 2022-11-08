@@ -44,4 +44,13 @@ public class Recommendations {
   public void setRestaurants(Restaurants restaurants) {
     this.restaurants = restaurants;
   }
+
+  @Override
+  public String toString() {
+    return "Recommendations{" +
+        "RecommendationId=" + RecommendationId +
+        ", users=" + users +
+        ", restaurants=" + restaurants +
+        '}';
+  }
 }

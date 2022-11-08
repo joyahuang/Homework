@@ -21,8 +21,7 @@ public class FoodCartRestaurantsDao {
     return instance;
   }
   public FoodCartRestaurants create(FoodCartRestaurants foodCartRestaurants)throws SQLException {
-    RestaurantsDao.getInstance().create(foodCartRestaurants.getParent());
-    String insertOne="INSERT INTO TakeOutRestaurants(RestaurantId,Licensed) VALUES(?,?)";
+    String insertOne="INSERT INTO FoodCartRestaurant(RestaurantId,Licensed) VALUES(?,?)";
     Connection connection=null;
     PreparedStatement insertStmt=null;
     try{
@@ -46,9 +45,9 @@ public class FoodCartRestaurantsDao {
   }
   public FoodCartRestaurants getFoodCartRestaurantById(int restaurantId)throws SQLException{
     String selectOne = "SELECT RestaurantId,Name,Description,Menu,Hours,Active,"
-        + "CuisineType,Street1,Street2,City,State,Zip,CompanyName,FoodCartRestaurants.Licensed "
-        + "FROM Restaurants INNER JOIN FoodCartRestaurants "
-        + "ON Restaurants.RestaurantId=FoodCartRestaurants.RestaurantId"
+        + "CuisineType,Street1,Street2,City,State,Zip,CompanyName,FoodCartRestaurant.Licensed "
+        + "FROM Restaurants INNER JOIN FoodCartRestaurant "
+        + "ON Restaurants.RestaurantId=FoodCartRestaurant.RestaurantId"
         + " WHERE RestaurantId=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
@@ -83,9 +82,9 @@ public class FoodCartRestaurantsDao {
   public List<FoodCartRestaurants> getFoodCartRestaurantsByCompanyName(String companyName)throws SQLException{
     List<FoodCartRestaurants> res=new ArrayList<FoodCartRestaurants>();
     String selectOne = "SELECT RestaurantId,Name,Description,Menu,Hours,Active,"
-        + "CuisineType,Street1,Street2,City,State,Zip,CompanyName,FoodCartRestaurants.Licensed "
-        + "FROM Restaurants INNER JOIN FoodCartRestaurants "
-        + "ON Restaurants.RestaurantId=FoodCartRestaurants.RestaurantId"
+        + "CuisineType,Street1,Street2,City,State,Zip,CompanyName,FoodCartRestaurant.Licensed "
+        + "FROM Restaurants INNER JOIN FoodCartRestaurant "
+        + "ON Restaurants.RestaurantId=FoodCartRestaurant.RestaurantId"
         + " WHERE CompanyName=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
@@ -118,7 +117,7 @@ public class FoodCartRestaurantsDao {
     return res;
   }
   public FoodCartRestaurants delete(FoodCartRestaurants foodCartRestaurant)throws SQLException{
-    String deleteOne = "DELETE FROM FoodCartRestaurants WHERE RestaurantId=?;";
+    String deleteOne = "DELETE FROM FoodCartRestaurant WHERE RestaurantId=?;";
     Connection connection = null;
     PreparedStatement deleteStmt = null;
     try {

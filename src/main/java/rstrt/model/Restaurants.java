@@ -14,7 +14,7 @@ public class Restaurants {
 	protected String City;
 	protected String State;
 	protected int Zip;
-	protected String CompanyName;
+	protected Companies Company;
 
 	public enum CuisineType{
 		AFRICAN, AMERICAN, ASIAN, EUROPEAN, HISPANIC
@@ -24,7 +24,7 @@ public class Restaurants {
 			String menu, String hours, Boolean active,
 			Restaurants.CuisineType cuisineType, String street1,
 			String street2, String city, String state, int zip,
-			String companyName) {
+			Companies company) {
 		RestaurantId = restaurantId;
 		Name = name;
 		Description = description;
@@ -37,14 +37,14 @@ public class Restaurants {
 		City = city;
 		State = state;
 		Zip = zip;
-		CompanyName = companyName;
+		Company=company;
 	}
 
 	public Restaurants(String name, String description, String menu,
 			String hours, Boolean active,
 			Restaurants.CuisineType cuisineType, String street1,
 			String street2, String city, String state, int zip,
-			String companyName) {
+			Companies company) {
 		Name = name;
 		Description = description;
 		Menu = menu;
@@ -56,7 +56,7 @@ public class Restaurants {
 		City = city;
 		State = state;
 		Zip = zip;
-		CompanyName = companyName;
+		Company = company;
 	}
 
 	public Restaurants(String name, String description, String menu,
@@ -78,7 +78,7 @@ public class Restaurants {
 	public Restaurants(String name, String description,
 			String menu, String hours, Boolean active,
 			Restaurants.CuisineType cuisineType, String street1,
-			String city, String state, int zip, String companyName) {
+			String city, String state, int zip, Companies company) {
 		Name = name;
 		Description = description;
 		Menu = menu;
@@ -89,7 +89,7 @@ public class Restaurants {
 		City = city;
 		State = state;
 		Zip = zip;
-		CompanyName = companyName;
+		Company = company;
 	}
 
 	public Restaurants(String name, String description,
@@ -205,11 +205,30 @@ public class Restaurants {
 		Zip = zip;
 	}
 
-	public String getCompanyName() {
-		return CompanyName;
+	public Companies getCompany() {
+		return Company;
 	}
 
-	public void setCompanyName(String companyName) {
-		CompanyName = companyName;
+	public void setCompany(Companies company) {
+		Company = company;
+	}
+
+	@Override
+	public String toString() {
+		return "Restaurants{" +
+				"RestaurantId=" + RestaurantId +
+				", Name='" + Name + '\'' +
+				", Description='" + Description + '\'' +
+				", Menu='" + Menu + '\'' +
+				", Hours='" + Hours + '\'' +
+				", Active=" + Active +
+				", CuisineType=" + CuisineType +
+				", Street1='" + Street1 + '\'' +
+				", Street2='" + Street2 + '\'' +
+				", City='" + City + '\'' +
+				", State='" + State + '\'' +
+				", Zip=" + Zip +
+				", CompanyName='" + Company + '\'' +
+				'}';
 	}
 }

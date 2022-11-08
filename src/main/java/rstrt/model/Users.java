@@ -82,4 +82,16 @@ public class Users {
   public void setPhone(String phone) {
     Phone = phone;
   }
+
+  @Override
+  public String toString() {
+    return "Users{" +
+        "UserName='" + UserName + '\'' +
+        ", Password='" + Password + '\'' +
+        ", FirstName='" + FirstName + '\'' +
+        ", LastName='" + LastName + '\'' +
+        ", Email='" + Email + '\'' +
+        ", Phone='" + Phone + '\'' +
+        '}';
+  }
 }

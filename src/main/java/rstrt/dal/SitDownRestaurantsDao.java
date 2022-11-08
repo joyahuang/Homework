@@ -22,8 +22,7 @@ public class SitDownRestaurantsDao {
     return instance;
   }
   public SitDownRestaurants create(SitDownRestaurants sitDownRestaurant)throws SQLException{
-    RestaurantsDao.getInstance().create(sitDownRestaurant.getParent());
-    String insertOne="INSERT INTO SitDownRestaurants(RestaurantId,Capacity) VALUES(?,?)";
+    String insertOne="INSERT INTO SitDownRestaurant(RestaurantId,Capacity) VALUES(?,?)";
     Connection connection=null;
     PreparedStatement insertStmt=null;
     try{
@@ -47,9 +46,9 @@ public class SitDownRestaurantsDao {
   }
   public SitDownRestaurants getSitDownRestaurantById(int sitDownRestaurantId)throws SQLException{
     String selectOne = "SELECT RestaurantId,Name,Description,Menu,Hours,Active,"
-        + "CuisineType,Street1,Street2,City,State,Zip,CompanyName,SitDownRestaurants.Capacity "
-        + "FROM Restaurants INNER JOIN SitDownRestaurants "
-        + "ON Restaurants.RestaurantId=SitDownRestaurants.RestaurantId"
+        + "CuisineType,Street1,Street2,City,State,Zip,CompanyName,SitDownRestaurant.Capacity "
+        + "FROM Restaurants INNER JOIN SitDownRestaurant "
+        + "ON Restaurants.RestaurantId=SitDownRestaurant.RestaurantId"
         + " WHERE RestaurantId=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
@@ -84,9 +83,9 @@ public class SitDownRestaurantsDao {
   public List<SitDownRestaurants> getSitDownRestaurantsByCompanyName(String companyName)throws SQLException{
     List<SitDownRestaurants> res=new ArrayList<SitDownRestaurants>();
     String selectOne = "SELECT RestaurantId,Name,Description,Menu,Hours,Active,"
-        + "CuisineType,Street1,Street2,City,State,Zip,CompanyName,SitDownRestaurants.Capacity "
-        + "FROM Restaurants INNER JOIN SitDownRestaurants "
-        + "ON Restaurants.RestaurantId=SitDownRestaurants.RestaurantId"
+        + "CuisineType,Street1,Street2,City,State,Zip,CompanyName,SitDownRestaurant.Capacity "
+        + "FROM Restaurants INNER JOIN SitDownRestaurant "
+        + "ON Restaurants.RestaurantId=SitDownRestaurant.RestaurantId"
         + " WHERE CompanyName=?;";
     Connection connection = null;
     PreparedStatement selectStmt = null;
@@ -119,7 +118,7 @@ public class SitDownRestaurantsDao {
     return res;
   }
   public SitDownRestaurants delete(SitDownRestaurants sitDownRestaurant)throws SQLException{
-    String deleteOne = "DELETE FROM SitDownRestaurants WHERE RestaurantId=?;";
+    String deleteOne = "DELETE FROM SitDownRestaurant WHERE RestaurantId=?;";
     Connection connection = null;
     PreparedStatement deleteStmt = null;
     try {

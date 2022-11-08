@@ -28,7 +28,7 @@ public class CreditCardsDao {
       insertStmt=connection.prepareStatement(insertCreditCard);
       insertStmt.setLong(1,creditCard.getCardNumber());
       insertStmt.setDate(2,creditCard.getExpiration());
-      insertStmt.setString(3,creditCard.getUserName());
+      insertStmt.setString(3,creditCard.getUser().getUserName());
       insertStmt.executeUpdate();
       return creditCard;
     }catch (SQLException e){
@@ -54,12 +54,12 @@ public class CreditCardsDao {
       selectStmt.setLong(1, cardNumber);
 
       results = selectStmt.executeQuery();
-
+      UsersDao usersDao=UsersDao.getInstance();
       if(results.next()) {
         long resultCardNumber = results.getLong("CardNumber");
         Date expiration = results.getDate("Expiration");
-        String username = results.getString("UserName");
-        CreditCards creditcard = new CreditCards(resultCardNumber, expiration,username);
+        Users user=usersDao.getPersonByUserName(results.getString("UserName"));
+        CreditCards creditcard = new CreditCards(resultCardNumber, expiration,user);
         return creditcard;
       }
     } catch (SQLException e) {
@@ -89,14 +89,14 @@ public class CreditCardsDao {
       connection = connectionManager.getConnection();
       selectStmt = connection.prepareStatement(selectOne);
       selectStmt.setString(1, userName);
-
+      UsersDao usersDao=UsersDao.getInstance();
       results = selectStmt.executeQuery();
 
       while(results.next()) {
         long resultCardNumber = results.getLong("CardNumber");
         Date expiration = results.getDate("Expiration");
-        String username = results.getString("UserName");
-        CreditCards creditcard = new CreditCards(resultCardNumber, expiration,username);
+        Users user=usersDao.getPersonByUserName(results.getString("UserName"));
+        CreditCards creditcard = new CreditCards(resultCardNumber, expiration,user);
         cards.add(creditcard);
       }
     } catch (SQLException e) {
